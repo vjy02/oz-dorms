@@ -15,9 +15,7 @@ export const Hero = () => {
           </p>
           
           <Card className="bg-white/5 backdrop-blur-sm border-white/10 shadow-lg md:w-1/2 md:mx-auto">
-            <CardContent className="p-0 m-0">
               <SearchBar />
-            </CardContent>
           </Card>
         </div>
       </div>

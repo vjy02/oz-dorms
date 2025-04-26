@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Star } from "lucide-react";
+import { useSearchParams } from 'next/navigation';
 
 const mockUniversities = [
   { name: "University of Melbourne", locations: ["Parkville, VIC"], dorms: ["University Hall", "Queen's College"] },
@@ -18,14 +19,13 @@ type Step =
   | "confirmation"
 
 export default function Review() {
-
-  const state = location as { university?: string; location?: string; dorm?: string };
-
-  const [selectedUniversity, setSelectedUniversity] = useState(state?.university || "");
-  const [selectedDorm, setSelectedDorm] = useState(state?.dorm || "");
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+  const [selectedUniversity, setSelectedUniversity] = useState("");
+  const [selectedDorm, setSelectedDorm] = useState("");
   // Steps
   const [step, setStep] = useState<Step>(
-    selectedUniversity && selectedDorm ? "rating" : "choose"
+    id ? "rating" : "choose"
   );
   // Ratings
   const [roomRating, setRoomRating] = useState(0);
@@ -53,12 +53,27 @@ export default function Review() {
     setStep("comment");
   };
 
-  const handleNextFromComment = () => {
+  const handleNextFromComment = async () => {
     if (comment.trim().length < 75) {
       setError("Comment must be at least 75 characters.");
       return;
     }
     setError(null);
+    await fetch("/api/submit-review", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        content: comment,
+        buildingRating: buildingRating,
+        roomRating: roomRating,
+        bathroomRating: bathroomRating,
+        locationRating: locationRating,
+      }),
+    });
+    
     setStep("confirmation");
   };
 

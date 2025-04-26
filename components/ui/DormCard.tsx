@@ -7,25 +7,21 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Link from "next/link";
 
 interface DormCardProps {
-  id?: number;
+  id?: string;
   name: string;
   university: string;
   imageUrl: string;
   rating: number;
   reviewCount: number;
-  price: string;
-  features: string[];
 }
 
 export const DormCard = ({
-  id = 1,
+  id,
   name,
   university,
   imageUrl,
   rating,
   reviewCount,
-  price,
-  features
 }: DormCardProps) => {
   return (
     <Link href={`dorm/${id}`}>
@@ -64,13 +60,13 @@ export const DormCard = ({
         </div>
       </CardContent>
       <CardFooter className="mt-auto">
-      <div className="flex flex-wrap gap-1 mt-2">
+      {/* <div className="flex flex-wrap gap-1 mt-2">
           {features.map((feature, index) => (
             <Badge key={index} variant="outline" className="text-xs">
               {feature}
             </Badge>
           ))}
-        </div>
+        </div> */}
       </CardFooter>
     </Card>
     </Link>
