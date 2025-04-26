@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { useRouter } from 'next/navigation'
 
 interface Location {
   company: string;
@@ -14,6 +15,8 @@ interface SearchBarProps {
 }
 
 export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
+  const router = useRouter()
+
   const [selectedUniversity, setSelectedUniversity] = useState(initialUniversity);
   const [locations, setLocations] = useState<Location[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +36,7 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
   }, []);
 
   const handleSearch = () => {
-    console.log(`/search?university=${encodeURIComponent(selectedUniversity)}`);
+     router.push(`/search?university=${encodeURIComponent(selectedUniversity)}`);
   };
 
   if (isLoading) {
