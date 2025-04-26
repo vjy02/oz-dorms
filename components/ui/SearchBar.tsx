@@ -36,7 +36,7 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
-  const [selectedUniversity, setSelectedUniversity] =
+  const [selectedCompany, setSelectedCompany] =
     useState(initialUniversity);
   const [locations, setLocations] = useState<Location[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -59,16 +59,8 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
   }, []);
 
   const handleSearch = () => {
-    router.push(`/search?company=${encodeURIComponent(selectedUniversity)}`);
+    router.push(`/search?company=${encodeURIComponent(selectedCompany)}`);
   };
-
-  if (isLoading) {
-    return (
-      <div className="w-full flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
 
   const uniqueCompanies = Array.from(
     new Map(
@@ -102,27 +94,27 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
   );
 
   return (
-    <div className="w-full flex flex-col md:flex-row justify-center gap-4">
+    <div className="w-full flex flex-col md:flex-row justify-center gap-4 items-center">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full md:w-[250px] justify-between"
+            className="w-64 md:w-96 md:justify-between"
           >
-            {selectedUniversity
-              ? selectedUniversity
+            {selectedCompany
+              ? selectedCompany
               : "Select University or Company"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full md:w-[250px] p-0">
+        <PopoverContent className="p-0">
           <Command>
             <CommandInput
               placeholder="Search"
               value={searchQuery}
-              onValueChange={setSearchQuery}
+              onValueChange={(value) => setSearchQuery(value)}
             />
             <CommandList>
               <CommandEmpty>No university/company found.</CommandEmpty>
@@ -135,14 +127,14 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
                     key={`${state}-all`}
                     value={`All in ${state}`}
                     onSelect={() => {
-                      setSelectedUniversity(`All in ${state}`);
+                      setSelectedCompany(`All in ${state}`);
                       setOpen(false);
                     }}
                   >
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4",
-                        selectedUniversity === `All in ${state}`
+                        selectedCompany === `All in ${state}`
                           ? "opacity-100"
                           : "opacity-0"
                       )}
@@ -156,14 +148,14 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
                       key={location.id}
                       value={location.company.trim()}
                       onSelect={(currentValue) => {
-                        setSelectedUniversity(currentValue);
+                        setSelectedCompany(currentValue);
                         setOpen(false);
                       }}
                     >
                       <Check
                         className={cn(
                           "mr-2 h-4 w-4",
-                          selectedUniversity === location.company.trim()
+                          selectedCompany === location.company.trim()
                             ? "opacity-100"
                             : "opacity-0"
                         )}

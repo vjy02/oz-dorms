@@ -15,7 +15,7 @@ export const CallToAction = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="mb-8 md:mb-0 md:mr-8 text-center md:text-left">
-            <h2 className="text-3xl font-bold mb-4">Share Your Dorm Experience</h2>
+            <h2 className="text-3xl font-bold mb-4">Can't find your dorm?</h2>
             <p className="text-lg text-blue-100 max-w-md">
               Help future students find their perfect accommodation by submitting your dorm details. Every contribution helps!
             </p>
@@ -23,7 +23,7 @@ export const CallToAction = () => {
 
           <Card className="w-full md:w-1/3 bg-white text-foreground">
             <CardHeader>
-              <CardTitle className="text-blue-900 text-xl font-bold">Submit a Dorm</CardTitle>
+              <CardTitle className="text-blue-900 text-xl font-bold text-center">Dorm Request</CardTitle>
               <CardDescription>
                 Share details about a dorm that isn't listed yet. Let’s make sure no dorm is left behind.
               </CardDescription>
@@ -41,7 +41,7 @@ export const CallToAction = () => {
                   className="h-12"
                 />
                 <Button className="h-12 bg-blue-900 hover:bg-blue-800">
-                  Submit Dorm
+                  Submit
                 </Button>
               </div>
             </CardContent>

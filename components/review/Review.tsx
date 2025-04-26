@@ -59,7 +59,6 @@ export default function Review() {
           {}
         );
 
-        // map into University[]
         const uniList: University[] = Object.entries(byCompany).map(
           ([company, locs]) => ({
             name: company,
@@ -119,12 +118,11 @@ export default function Review() {
   const handleBackFromRating = () => setStep("choose");
   const handleBackFromComment = () => setStep("rating");
 
-  // progress indicator
   const progress = { choose: 1, rating: 2, comment: 3, confirmation: 4 }[step];
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <main className="flex-1 flex flex-col items-center py-8 px-4">
+    <div className="flex flex-col justify-center min-h-[69.1vh] bg-background">
+      <main className="flex-1 flex flex-col items-center py-8 px-4 mt-2">
         <div className="w-full max-w-xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold">Write a Dorm Review</h1>
@@ -143,7 +141,7 @@ export default function Review() {
           {step === "choose" && (
             <section className="animate-fade-in flex flex-col gap-6">
               <div>
-                <Label>Select University</Label>
+                <Label>Select Institution</Label>
                 <select
                   className="mt-1 w-full border rounded p-2 text-sm"
                   value={selectedUniversity}

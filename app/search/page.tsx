@@ -31,7 +31,7 @@ export default function Page() {
 
     fetchDorms();
   }, [companyQuery]); 
-console.log(dorms)
+
   return (
     <main className="">
 
