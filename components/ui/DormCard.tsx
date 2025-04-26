@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Link from "next/link";
 
 interface DormCardProps {
   id?: number;
@@ -28,6 +29,7 @@ export const DormCard = ({
 }: DormCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-lg h-full flex flex-col hover:scale-[101%] hover:cursor-pointer transition-all duration-300">
+      <Link href={`dorm/${id}`}>
       <div className="relative">
         <AspectRatio ratio={16/9}>
           <img
@@ -70,6 +72,7 @@ export const DormCard = ({
           ))}
         </div>
       </CardFooter>
+      </Link>
     </Card>
   );
 };
