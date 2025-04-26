@@ -28,8 +28,8 @@ export const DormCard = ({
   features
 }: DormCardProps) => {
   return (
+    <Link href={`dorm/${id}`}>
     <Card className="overflow-hidden hover:shadow-lg h-full flex flex-col hover:scale-[101%] hover:cursor-pointer transition-all duration-300">
-      <Link href={`dorm/${id}`}>
       <div className="relative">
         <AspectRatio ratio={16/9}>
           <img
@@ -72,8 +72,8 @@ export const DormCard = ({
           ))}
         </div>
       </CardFooter>
-      </Link>
     </Card>
+    </Link>
   );
 };
 

@@ -193,7 +193,7 @@ const router = useRouter();
               </Button>
               <Button
                 variant="default"
-                className="bg-blue-900 text-white"
+                className="bg-blue-900 text-white hover:bg-blue-800"
                 onClick={goToReviewPage}
               >
                 <Star className="h-4 w-4 mr-2" />
