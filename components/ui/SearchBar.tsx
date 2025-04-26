@@ -1,9 +1,20 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Check, ChevronsUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -25,7 +36,8 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
-  const [selectedUniversity, setSelectedUniversity] = useState(initialUniversity);
+  const [selectedUniversity, setSelectedUniversity] =
+    useState(initialUniversity);
   const [locations, setLocations] = useState<Location[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,24 +76,30 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
     ).values()
   );
 
-  const groupedByState = uniqueCompanies.reduce((acc: Record<string, Location[]>, location) => {
-    const state = location.state || "Other";
-    if (!acc[state]) {
-      acc[state] = [];
-    }
-    acc[state].push(location);
-    return acc;
-  }, {});
+  const groupedByState = uniqueCompanies.reduce(
+    (acc: Record<string, Location[]>, location) => {
+      const state = location.state || "Other";
+      if (!acc[state]) {
+        acc[state] = [];
+      }
+      acc[state].push(location);
+      return acc;
+    },
+    {}
+  );
 
-  const filteredGroupedByState = Object.keys(groupedByState).reduce((acc: Record<string, Location[]>, state) => {
-    const filteredLocations = groupedByState[state].filter((location) =>
-      location.company.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (filteredLocations.length > 0) {
-      acc[state] = filteredLocations;
-    }
-    return acc;
-  }, {});
+  const filteredGroupedByState = Object.keys(groupedByState).reduce(
+    (acc: Record<string, Location[]>, state) => {
+      const filteredLocations = groupedByState[state].filter((location) =>
+        location.company.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (filteredLocations.length > 0) {
+        acc[state] = filteredLocations;
+      }
+      return acc;
+    },
+    {}
+  );
 
   return (
     <div className="w-full flex flex-col md:flex-row justify-center gap-4">
@@ -93,7 +111,9 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
             aria-expanded={open}
             className="w-full md:w-[250px] justify-between"
           >
-            {selectedUniversity ? selectedUniversity : "Select University or Company"}
+            {selectedUniversity
+              ? selectedUniversity
+              : "Select University or Company"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -110,6 +130,27 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
               {/* Grouped by state */}
               {Object.keys(filteredGroupedByState).map((state) => (
                 <CommandGroup key={state} heading={state}>
+                  {/* Add "All" option first */}
+                  <CommandItem
+                    key={`${state}-all`}
+                    value={`All in ${state}`}
+                    onSelect={() => {
+                      setSelectedUniversity(`All in ${state}`);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        selectedUniversity === `All in ${state}`
+                          ? "opacity-100"
+                          : "opacity-0"
+                      )}
+                    />
+                    {`All in ${state}`}
+                  </CommandItem>
+
+                  {/* Then render each individual dorm/company */}
                   {filteredGroupedByState[state].map((location) => (
                     <CommandItem
                       key={location.id}
@@ -122,7 +163,9 @@ export const SearchBar = ({ initialUniversity = "" }: SearchBarProps) => {
                       <Check
                         className={cn(
                           "mr-2 h-4 w-4",
-                          selectedUniversity === location.company.trim() ? "opacity-100" : "opacity-0"
+                          selectedUniversity === location.company.trim()
+                            ? "opacity-100"
+                            : "opacity-0"
                         )}
                       />
                       {location.company.trim()}

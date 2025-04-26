@@ -130,7 +130,9 @@ export default function Page() {
                 <span>{dorm.location}</span>
               </div>
             </div>
-            <div className="flex mt-4 md:mt-0 gap-2 md:place-self-start"> <Button variant="outline" onClick={handleShare}>
+            <div className="flex mt-4 md:mt-0 gap-2 md:place-self-start">
+              {" "}
+              <Button variant="outline" onClick={handleShare}>
                 <Share2 className="h-4 w-4 mr-2" />
                 Share
               </Button>
@@ -203,7 +205,7 @@ export default function Page() {
                               size={14}
                               className={`${
                                 i < Math.floor(review.overall_rating)
-                                  ? "text-secondary-gold fill-secondary-gold"
+                                  ? "text-yellow-400 fill-yellow-400"
                                   : "text-gray-300"
                               }`}
                             />
@@ -225,18 +227,20 @@ export default function Page() {
                 <CardHeader>
                   <div className="flex justify-between">
                     <span className="font-semibold">Overall Rating</span>
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={16}
-                          className={`${
-                            i < Math.floor(dorm.ratings.overall_rating)
-                              ? "text-secondary-gold fill-secondary-gold"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
+                    <div className="flex items-center justify-between w-32">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={16}
+                            className={`${
+                              i < Math.floor(dorm.ratings.overall_rating)
+                                ? "text-yellow-400 fill-yellow-400"
+                                : "text-gray-300"
+                            }`}
+                          />
+                        ))}
+                      </div>
                       <span className="ml-1 text-sm font-semibold">
                         {dorm.ratings.overall_rating}
                       </span>
@@ -265,19 +269,21 @@ export default function Page() {
                                   match.toUpperCase()
                                 )}
                             </span>
-                            <div className="flex items-center">
-                              {[...Array(5)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  size={16}
-                                  className={`${
-                                    i < Math.floor(dorm.ratings[category])
-                                      ? "text-secondary-gold fill-secondary-gold"
-                                      : "text-gray-300"
-                                  }`}
-                                />
-                              ))}
-                              <span className="ml-1 text-sm font-semibold">
+                            <div className="flex items-center justify-between w-32">
+                              <div className="flex">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star
+                                    key={i}
+                                    size={16}
+                                    className={`${
+                                      i < Math.floor(dorm.ratings[category])
+                                        ? "text-yellow-400 fill-yellow-400"
+                                        : "text-gray-300"
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              <span className="ml-1 text-sm font-semibold justify-self-end">
                                 {dorm.ratings[category]}
                               </span>
                             </div>
@@ -293,7 +299,7 @@ export default function Page() {
                   </div>
 
                   <div className="border-t pt-4 mt-4">
-                    <h4 className="font-bold mb-2">Location</h4>
+                    <h4 className="font-bold mb-2 text-center">Location</h4>
                     <iframe
                       src={dorm.maps_url}
                       style={{ border: "0" }}

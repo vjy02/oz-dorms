@@ -23,7 +23,7 @@ export const CallToAction = () => {
 
           <Card className="w-full md:w-1/3 bg-white text-foreground">
             <CardHeader>
-              <CardTitle className="text-blue-900 text-xl">Submit a Dorm</CardTitle>
+              <CardTitle className="text-blue-900 text-xl font-bold">Submit a Dorm</CardTitle>
               <CardDescription>
                 Share details about a dorm that isn't listed yet. Let’s make sure no dorm is left behind.
               </CardDescription>

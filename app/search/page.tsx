@@ -10,7 +10,7 @@ import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const selectedCompany = useSearchParams().get("company");  
-  const companyQuery = selectedCompany ?? "all";  
+  const companyQuery = selectedCompany ?? "All in VIC";  
   const [sortBy, setSortBy] = useState("rating");
   const [dorms, setDorms] = useState<any[]>([]); // Always initialize as an array
   const [loading, setLoading] = useState(true);
@@ -21,8 +21,6 @@ export default function Page() {
       try {
         const response = await fetch(`/api/get-company?company=${encodeURI(companyQuery)}`);
         const { data } = await response.json();
-
-        // Ensure data is an array before setting it
         setDorms(Array.isArray(data) ? data : []);
       } catch (err) {
         setError("An error occurred while fetching data.");
@@ -32,8 +30,8 @@ export default function Page() {
     };
 
     fetchDorms();
-  }, [companyQuery]);  // Add companyQuery as a dependency for re-fetching when it changes
-
+  }, [companyQuery]); 
+console.log(dorms)
   return (
     <main className="">
 
@@ -66,14 +64,8 @@ export default function Page() {
           </div>
         )}
 
-        {error && (
-          <div className="text-center py-16">
-            <p className="text-xl text-red-600">{error}</p>
-          </div>
-        )}
-
         {/* Results grid */}
-        {dorms.length === 0 || !dorms ? (
+        {(dorms.length === 0 || !dorms) && !loading ? (
           <div className="text-center py-16">
             <p className="text-xl text-gray-600">
               No dorms found. Try adjusting your search criteria.
@@ -90,9 +82,9 @@ export default function Page() {
                 id={dorm.id}
                 name={dorm.name}
                 university={dorm.company}
-                imageUrl={dorm.images[0]}
-                rating={5} // Adjust as per the real data
-                reviewCount={0} // Adjust as per the real data
+                imageUrl={"https://media.istockphoto.com/id/492965853/photo/university-college-dorm-room-with-bunkbeds-empty-unoccupied-student-bedroom.jpg?s=612x612&w=0&k=20&c=se0Dsy9AwP240fgPs10Fz39uPZR8PgPYn8hiFwhZf58="}
+                rating={dorm.overall_rating ? (Math.round(dorm.overall_rating * 100)/100) : 0} 
+                reviewCount={dorm.review_count ?? 0} 
               />
             ))}
           </div>

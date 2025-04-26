@@ -25,22 +25,20 @@ export const DormCard = ({
 }: DormCardProps) => {
   return (
     <Link href={`dorm/${id}`}>
-    <Card className="overflow-hidden hover:shadow-lg h-full flex flex-col hover:scale-[101%] hover:cursor-pointer transition-all duration-300">
-      <div className="relative">
-        <AspectRatio ratio={16/9}>
+    <Card className="overflow-hidden hover:shadow-lg h-full flex flex-col hover:scale-[101%] hover:cursor-pointer transition-all duration-300 p-0">
+        <AspectRatio ratio={16/9} className="">
           <img
             src={imageUrl}
             alt={name}
             className="w-full h-full object-cover"
           />
         </AspectRatio>
-      </div>
       <CardHeader className="pb-2">
         <CardTitle className="font-bold text-lg text-blue-900">{name}</CardTitle>
         <CardDescription className="text-gray-500">{university}</CardDescription>
       </CardHeader>
       <CardContent className="pb-2">
-        <div className="flex items-center mb-3">
+        <div className="flex mb-3 items-center">
           <div className="flex items-center mr-2">
             {[...Array(5)].map((_, i) => (
               <Star
@@ -48,16 +46,19 @@ export const DormCard = ({
                 size={16}
                 className={`${
                   i < Math.floor(rating)
-                    ? "text-secondary-gold fill-secondary-gold"
+                    ? "text-yellow-400 fill-yellow-400"
                     : "text-gray-300"
                 }`}
               />
             ))}
           </div>
           <span className="text-sm text-gray-500">
-            {rating} ({reviewCount} reviews)
+            {rating} 
           </span>
         </div>
+        <span className="text-sm text-gray-500">
+        {reviewCount} reviews
+        </span>
       </CardContent>
       <CardFooter className="mt-auto">
       {/* <div className="flex flex-wrap gap-1 mt-2">
